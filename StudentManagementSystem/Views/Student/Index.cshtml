@@ -1,0 +1,64 @@
+﻿@model IEnumerable< StudentManagementSystem.ViewModel.StudentVm>
+@{
+
+}
+
+<div class="container">
+    <div class="row">
+        <table class="table  table-striped" id="studentTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>StudentId</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>DateOfBirth</th>
+                    <th>Photo</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // AJAX call to retrieve data
+            $.ajax({
+                url: '@Url.Action("GetAllStudent", "Student")', // Update with your actual action and controller names
+                type: 'GET',
+                success: function (data) {
+                    // Bind data to tbody
+                    var tbody = $('#studentTable tbody');
+                    tbody.empty();
+                    $.each(data, function (index, item) {
+                        debugger;
+                        var row = '<tr>' +
+                            '<td>' + (index + 1) + '</td>' +
+                            '<td>' + item.studentId + '</td>' +
+                            '<td>' + item.name + '</td>' +
+                            '<td>' + item.email + '</td>' +
+                            '<td>' + item.phone + '</td>' +
+                            '<td>' + item.address + '</td>' +
+                            '<td>' + item.dateOfBirth + '</td>' +
+                            '<td>' + item.photo + '</td>' +
+                            '<td>' +
+                            '<a class="btn btn-sm btn-primary" href="@Url.Action("CreateOrEdit", "Student")/' + item.id + '">Edit</a> ' +
+                            '<a class="btn btn-sm btn-danger" href="@Url.Action("Delete", "City")/' + item.id + '" onclick="return confirm(\'Are You Sure?\')">Delete</a>' +
+                                '</td>' +
+                            '</tr>';
+                        tbody.append(row);
+                    });
+                }
+            });
+        });
+    </script>
+}

@@ -1,10 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using StudentManagementSystem;
 using StudentManagementSystem.DatabaseContext;
+using StudentManagementSystem.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(typeof(ICore));
+builder.Services.AddTransient<IStudentRepository, StudentRepository>();
 builder.Services.AddDbContext<ApplicationDbContext>(c => c.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
 
 
