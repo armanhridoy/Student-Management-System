@@ -1,0 +1,54 @@
+﻿@model IEnumerable< StudentManagementSystem.ViewModel.EmployeeVm>
+@{
+
+}
+<div class="container">
+    <div class="row">
+        <table id="" class="">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>EmployeeName</th>
+                    <th>EmployeeId</th>
+                    <th>EmployeeInformation</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // AJAX call to retrieve data
+            $.ajax({
+                url: '@Url.Action("GetAllEmployee", "Employee")', // Update with your actual action and controller names
+                type: 'GET',
+                success: function (data) {
+                    // Bind data to tbody
+                    var tbody = $('#EmployeeTable tbody');
+                    tbody.empty();
+                    $.each(data, function (index, item) {
+                        debugger;
+                        var row = '<tr>' +
+                            '<td>' + (index + 1) + '</td>' +
+                            '<td>' + item.EmployeeName + '</td>' +
+                            '<td>' + item.EmployeeId + '</td>' +
+                            '<td>' + item.EmployeeInformation + '</td>' +
+                            '<td>' + item.Image + '</td>' +
+                            '<td>' +
+                            '<a class="btn btn-sm btn-primary" href="@Url.Action("CreateOrEdit", "Employee")/' + item.id + '">Edit</a> ' +
+                            '<a class="btn btn-sm btn-danger" href="@Url.Action("Delete", "Employee")/' + item.id + '" onclick="return confirm(\'Are You Sure?\')">Delete</a>' +
+                                '</td>' +
+                            '</tr>';
+                        tbody.append(row);
+                    });
+                }
+            });
+        });
+    </script>}
