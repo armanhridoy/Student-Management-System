@@ -1,4 +1,4 @@
-﻿@model StudentManagementSystem.ViewModel.EmployeeVm
+﻿@model StudentManagementSystem.ViewModel.TeacherVm
 
 @{
     ViewData["Title"] = "CreateOrEdit";
@@ -6,26 +6,26 @@
 
 <h1>CreateOrEdit</h1>
 
-<h4>EmployeeVm</h4>
+<h4>TeacherVm</h4>
 <hr />
 <div class="row d-flex justify-content-center">
     <div class="col-md-4">
         <form asp-action="CreateOrEdit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="EmployeeName" class="control-label"></label>
-                <input asp-for="EmployeeName" class="form-control" />
-                <span asp-validation-for="EmployeeName" class="text-danger"></span>
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EmployeeId" class="control-label"></label>
-                <input asp-for="EmployeeId" class="form-control" />
-                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EmployeeInformation" class="control-label"></label>
-                <input asp-for="EmployeeInformation" class="form-control" />
-                <span asp-validation-for="EmployeeInformation" class="text-danger"></span>
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>

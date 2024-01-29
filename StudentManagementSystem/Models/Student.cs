@@ -12,6 +12,9 @@ public class Student
     public  string Phone { get; set; } = string.Empty;
     public  string Address { get; set; } = string.Empty;
     public DateOnly DateOfBirth { get; set; }   
-
     public string Photo { get; set; }
+    public int TeacherId { get; set; }
+    public int EmployeeId {  get; set; }
+    public Employee Employee { get; set; }
+    public Teacher Teacher { get; set; }
 }

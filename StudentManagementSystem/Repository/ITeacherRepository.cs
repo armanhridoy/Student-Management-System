@@ -5,7 +5,7 @@ using StudentManagementSystem.ViewModel;
 
 namespace StudentManagementSystem.Repository;
 
-public interface IEmployeeRepository : ICommonService<Employee,EmployeeVm>
+public interface ITeacherRepository : ICommonService<Teacher,TeacherVm>
 {
-    public IEnumerable<SelectListItem> DropDown();
+    public IEnumerable<SelectListItem> Dropdown();
 }

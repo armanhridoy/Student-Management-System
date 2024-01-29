@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using StudentManagementSystem.Controllers;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentManagementSystem.DatabaseContext;
+using StudentManagementSystem.Models;
 using StudentManagementSystem.Service;
 using StudentManagementSystem.ViewModel;
 
@@ -10,5 +11,10 @@ public class EmployeeRepository : CommonService<Employee, EmployeeVm>, IEmployee
 {
     public EmployeeRepository(IMapper mapper, ApplicationDbContext dbcontext) : base(mapper, dbcontext)
     {
+    }
+
+    public IEnumerable<SelectListItem> DropDown()
+    {
+       return DbSet.Select(x=>new SelectListItem { Text=x.EmployeeName,Value=x.Id.ToString()});
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.DatabaseContext;
+using System.Linq.Expressions;
 
 namespace StudentManagementSystem.Service;
 
@@ -59,5 +60,14 @@ public class CommonService<TEntity, IModel> : ICommonService<TEntity, IModel>
         if (entity == null) return null;
         var model = _mapper.Map<TEntity, IModel>(entity);
         return model;
+    }
+
+    public async Task<List<IModel>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes)
+    {
+        var entities = await includes.Aggregate(
+             _dbcontext.Set<TEntity>().AsQueryable(), (current, include) => current.Include(include))
+             .ToListAsync().ConfigureAwait(true);
+
+        return _mapper.Map<List<IModel>>(entities);
     }
 }

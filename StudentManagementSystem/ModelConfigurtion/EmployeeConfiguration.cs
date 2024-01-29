@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StudentManagementSystem.Controllers;
+using StudentManagementSystem.Models;
 
 namespace StudentManagementSystem.ModelConfigurtion;
 

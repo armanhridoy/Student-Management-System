@@ -7,25 +7,33 @@ namespace StudentManagementSystem.Controllers
     public class StudentController : Controller
     {
         private readonly IStudentRepository _studentRepository;
+        private readonly ITeacherRepository _TeacherRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public StudentController(IStudentRepository studentRepository)
+        public StudentController(IStudentRepository studentRepository, ITeacherRepository teacherRepository, IEmployeeRepository employeeRepository)
         {
             _studentRepository = studentRepository;
+            _TeacherRepository = teacherRepository;
+            _employeeRepository = employeeRepository;
         }
+
         public  IActionResult Index()
         {
             return View();
         }
 
-        public async Task<IActionResult> GetAllStudent(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAllStudent()
         {
-            return Json(await _studentRepository.GetAllAsync(cancellationToken));
+            return Json(await _studentRepository.GetAllAsync(x=>x.Teacher,x=>x.Employee));
         }
             
 
         [HttpGet]
         public async Task<IActionResult>CreateOrEdit(int Id, CancellationToken cancellationToken)
         {
+            ViewData["TeacherId"] = _TeacherRepository.Dropdown();
+            ViewData["EmployeeId"]=_employeeRepository.DropDown();
+
             if (Id == 0)
                 return View(new StudentVm());
             else

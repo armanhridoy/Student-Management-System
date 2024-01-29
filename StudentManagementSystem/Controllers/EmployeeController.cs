@@ -4,18 +4,15 @@ using StudentManagementSystem.ViewModel;
 
 namespace StudentManagementSystem.Controllers
 {
-    public class EmployeeController : Controller
+    public class EmployeeController(IEmployeeRepository employeeRepository) : Controller
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeRepository _employeeRepository = employeeRepository;
 
-        public EmployeeController(IEmployeeRepository employeeRepository)
-        {
-            _employeeRepository = employeeRepository;
-        }
-        public async Task<IActionResult> index()
+        public IActionResult Index()
         {
             return View();
         }
+        [HttpGet]
         public async Task<IActionResult>GetAllEmployee(CancellationToken cancellationToken)
         {
             return Json (await _employeeRepository.GetAllAsync(cancellationToken));
@@ -46,7 +43,7 @@ namespace StudentManagementSystem.Controllers
                 return RedirectToAction("Index");
             }
         }
-        [HttpDelete]
+       
         public async Task<IActionResult>Delete(int Id,CancellationToken cancellationToken)
         {
             await _employeeRepository.DeleteAsync(Id,cancellationToken);

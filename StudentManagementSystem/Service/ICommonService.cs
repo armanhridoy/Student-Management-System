@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
+using System.Linq.Expressions;
 
 namespace StudentManagementSystem.Service;
 
@@ -10,4 +11,5 @@ public interface ICommonService<TEntity, IModel>
     Task<IModel> UpDateAsync(int Id, IModel model, CancellationToken cancellationToken);
     Task<IModel> DeleteAsync(int Id, CancellationToken cancellationToken);
     Task<IModel> GetByIdAsync(int Id, CancellationToken cancellationToken);
+    public Task<List<IModel>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes);
 }

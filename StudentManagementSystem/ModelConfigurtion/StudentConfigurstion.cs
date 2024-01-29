@@ -11,6 +11,7 @@ public class StudentConfigurstion : IEntityTypeConfiguration<Student>
        builder.ToTable(nameof(Student));
         builder.HasKey(t => t.Id);
         builder.Property(t => t.Name).HasMaxLength(50).IsRequired(true);
+        builder.HasOne(x=>x.Teacher).WithMany(x=>x.Students).HasForeignKey(x=>x.TeacherId);
         
     }
 }

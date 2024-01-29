@@ -1,70 +1,64 @@
-﻿@model IEnumerable< StudentManagementSystem.ViewModel.EmployeeVm>
+﻿@model IEnumerable<StudentManagementSystem.ViewModel.TeacherVm>
 @{
 
 }
 <p>
-    <a class="btn btn-sm btn-primary"asp-action="CreateOrEdit">Create New</a>
+    <a class="btn btn-sm btn-primary" asp-action="CreateOrEdit">Create New</a>
 </p>
 <div class="container">
-    <div class="row mx-auto">
-        <table id="EmployeeTable" class="table  table-striped">
+    <div class="row mt-auto">
+        <table class="table  table-striped" id="TeacherTable">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>EmployeeName</th>
-                    <th>EmployeeId</th>
-                    <th>EmployeeInformation</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
                     <th>Image</th>
                     <th>Action</th>
                 </tr>
             </thead>
+
             <tbody>
 
-
             </tbody>
+
         </table>
     </div>
 </div>
+ 
 @section scripts {
     <script>
         $(document).ready(function () {
             // AJAX call to retrieve data
             $.ajax({
-                url: '@Url.Action("GetAllEmployee", "Employee")',
+                url: '@Url.Action("GetAllTeacher", "Teacher")',
                 type: 'GET',
                 success: function (data) {
-                    // Debug the received data
-                    console.log(data);
-
                     // Bind data to tbody
-                    var tbody = $('#EmployeeTable tbody');
+                    var tbody = $('#TeacherTable tbody');
                     tbody.empty();
-
                     $.each(data, function (index, item) {
                         var row = '<tr>' +
                             '<td>' + (index + 1) + '</td>' +
-                            '<td>' + item.employeeName + '</td>' +
-                            '<td>' + item.employeeId + '</td>' +
-                            '<td>' + item.employeeInformation + '</td>' +
+                            '<td>' + item.name + '</td>' +
+                            '<td>' + item.email + '</td>' +
+                            '<td>' + item.phone + '</td>' +
                             '<td>' + item.image + '</td>' +
                             '<td>' +
-                            '<a class="btn btn-sm btn-primary" href="@Url.Action("CreateOrEdit", "Employee")/' + item.id + '">Edit</a> ' +
-                            '<a class="btn btn-sm btn-danger" href="@Url.Action("Delete", "Employee")/' + item.id + '" onclick="return confirm(\'Are You Sure?\')">Delete</a>' +
+                            '<a class="btn btn-sm btn-primary" href="@Url.Action("CreateOrEdit", "Teacher")/' + item.id + '">Edit</a> ' +
+                            '<a class="btn btn-sm btn-danger" href="@Url.Action("Delete", "Teacher")/' + item.id + '" onclick="return confirm(\'Are You Sure?\')">Delete</a>' +
                             '</td>' +
                             '</tr>';
-
                         tbody.append(row);
                     });
 
                     // DataTable initialization with paging
-                    $('#EmployeeTable').DataTable({
+                    $('#TeacherTable').DataTable({
                         "paging": true,
                         "pageLength": 10, // You can adjust the number of records per page
                         // Add other DataTable configurations as needed
                     });
-                },
-                error: function (error) {
-                    console.log("Error fetching data:", error);
                 }
             });
         });

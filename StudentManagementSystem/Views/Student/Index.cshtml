@@ -3,12 +3,18 @@
 
 }
 
+<p>
+    <a class="btn btn-sm btn-dark"asp-action="CreateOrEdit">Create New</a>
+</p>
+
 <div class="container">
-    <div class="row">
-        <table class="table  table-striped" id="studentTable">
+    <div class="row mx-auto">
+        <table class="table  table-striped bg-secondary" id="studentTable">
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Techer Name</th>
+                    <th>Emp. Name</th>
                     <th>StudentId</th>
                     <th>Name</th>
                     <th>Email</th>
@@ -32,6 +38,7 @@
     <script>
         $(document).ready(function () {
             // AJAX call to retrieve data
+            new DataTable('#studentTable');
             $.ajax({
                 url: '@Url.Action("GetAllStudent", "Student")', // Update with your actual action and controller names
                 type: 'GET',
@@ -40,9 +47,13 @@
                     var tbody = $('#studentTable tbody');
                     tbody.empty();
                     $.each(data, function (index, item) {
+
+                        console.log(data)
                         debugger;
                         var row = '<tr>' +
                             '<td>' + (index + 1) + '</td>' +
+                            '<td>' + (item.teacher ? item.teacher.name : '') + '</td>' +
+                            '<td>' + (item.employee ? item.employee.employeeName : '') + '</td>' +
                             '<td>' + item.studentId + '</td>' +
                             '<td>' + item.name + '</td>' +
                             '<td>' + item.email + '</td>' +
@@ -52,13 +63,25 @@
                             '<td>' + item.photo + '</td>' +
                             '<td>' +
                             '<a class="btn btn-sm btn-primary" href="@Url.Action("CreateOrEdit", "Student")/' + item.id + '">Edit</a> ' +
-                            '<a class="btn btn-sm btn-danger" href="@Url.Action("Delete", "City")/' + item.id + '" onclick="return confirm(\'Are You Sure?\')">Delete</a>' +
-                                '</td>' +
+                            '<a class="btn btn-sm btn-danger" href="@Url.Action("Delete", "Student")/' + item.id + '" onclick="return confirm(\'Are You Sure?\')">Delete</a>' +
+                            '</td>' +
                             '</tr>';
                         tbody.append(row);
                     });
                 }
             });
+
+            
         });
     </script>
 }
+@* @section scripts {
+    @{
+        await Html.RenderPartialAsync("_validationScriptsPartial");
+        <script>
+            $(document).ready(function () {
+                new DataTable("#StudentTable")
+            })
+        </script>
+    }
+} *@
