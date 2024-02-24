@@ -10,6 +10,6 @@ public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
     {
        builder.ToTable(nameof(Employee));
         builder.HasKey(e => e.Id);
-        builder.Property(e => e.Id).HasMaxLength(50).IsRequired(true);
+        builder.Property(e => e.EmployeeName).HasMaxLength(50).IsRequired(true);
     }
 }
